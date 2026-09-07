@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { glossaryEntries } from "./data/glossary.js";
 import headerLogoUrl from "./assets/shifa-logo-white.svg";
-import healthcareHeroCollageUrl from "./assets/pakistan-healthcare-hero-collage.webp";
 import doctorsImageUrl from "./assets/pakistani-doctors-community.webp";
 import medicinesImageUrl from "./assets/pakistani-medicines-pharmacy.webp";
 import surgeryImageUrl from "./assets/pakistani-surgery-team.webp";
@@ -589,10 +588,7 @@ function HomePage({ t, navigate, query, setQuery, wordOfDay }) {
           </div>
         </div>
         <div className="hero-visual">
-          <img
-            src={healthcareHeroCollageUrl}
-            alt="Pakistani doctors with medicine, surgery and laboratory scenes"
-          />
+          <ImagePlaceholder label="Homepage hero image" className="hero-placeholder" />
           <div className="hero-logo-card">
             <span>{glossaryEntries.length}+ glossary words</span>
           </div>
@@ -622,7 +618,7 @@ function HomePage({ t, navigate, query, setQuery, wordOfDay }) {
               <span>Community learning</span>
             </div>
           </div>
-          <MedicalPhoto src={doctorsImageUrl} alt="Pakistani doctors discussing healthcare with a family" />
+          <MedicalPhoto alt="About Shifa Translate image" />
         </article>
       </section>
 
@@ -635,7 +631,7 @@ function HomePage({ t, navigate, query, setQuery, wordOfDay }) {
         <div className="home-care-categories-grid">
           {healthcareCategories.map((category) => (
             <article key={category.title}>
-              <img src={category.image} alt={`Pakistani healthcare: ${category.title}`} />
+              <ImagePlaceholder label={`${category.title} image`} className="category-image-placeholder" />
               <div>
                 <h3>{category.title}</h3>
                 <p>{category.text}</p>
@@ -655,7 +651,7 @@ function HomePage({ t, navigate, query, setQuery, wordOfDay }) {
               {wordOfDay.urdu} - {wordOfDay.urduMeaning}
             </strong>
           </div>
-          <MedicalPhoto src={medicinesImageUrl} alt="Pakistani pharmacist explaining medicines" />
+          <MedicalPhoto alt="Word of the day image" />
         </article>
         <div className="home-stat-strip">
           <article>
@@ -679,7 +675,7 @@ function HomePage({ t, navigate, query, setQuery, wordOfDay }) {
           <h2>Designed for the languages people use at home.</h2>
         </div>
         <div className="home-language-layout">
-          <MedicalPhoto src={labImageUrl} alt="Pakistani diagnostic laboratory professionals" />
+          <MedicalPhoto alt="Language coverage image" />
           <div className="home-language-list">
             {localLanguages.map((language) => (
               <button key={language} type="button" onClick={() => navigate(`/languages/${languageToSlug[language]}`)}>
@@ -726,7 +722,7 @@ function HomePage({ t, navigate, query, setQuery, wordOfDay }) {
           <h2>Health awareness from the Shifa Translate team.</h2>
         </div>
         <div className="home-blog-layout">
-          <BlogVisual large image={surgeryImageUrl} alt="Pakistani surgical team in an operating theatre" />
+          <ImagePlaceholder label="Latest blog image" className="blog-visual blog-visual-large" />
           <article>
             <span>{blogPosts[0].category}</span>
             <h3>{blogPosts[0].title}</h3>
@@ -770,12 +766,22 @@ function HomeHeroGraphic() {
   );
 }
 
-function MedicalPhoto({ src, alt }) {
+function ImagePlaceholder({ label, className = "" }) {
   return (
-    <div className="home-graphic medical-photo">
-      <img src={src} alt={alt} />
+    <div className={`image-placeholder ${className}`.trim()} role="img" aria-label={`${label} placeholder`}>
+      <svg viewBox="0 0 120 90" aria-hidden="true">
+        <rect x="22" y="18" width="76" height="54" rx="8" />
+        <circle cx="43" cy="37" r="7" />
+        <path d="M30 64 L50 47 L63 58 L73 50 L91 64" />
+      </svg>
+      <strong>Image placeholder</strong>
+      <span>{label}</span>
     </div>
   );
+}
+
+function MedicalPhoto({ alt }) {
+  return <ImagePlaceholder label={alt} className="home-graphic medical-photo" />;
 }
 
 function CommunityCareGraphic() {
@@ -1270,9 +1276,9 @@ function AboutPage({ t, navigate }) {
         <div className="team-section">
           <div className="section-heading">
             <p className="kicker">{t("meetTeam")}</p>
-            <h2>Meet the founders</h2>
+            <h2>Meet the founder</h2>
           </div>
-          <div className="about-grid">
+          <div className="about-grid single-founder-grid">
             <article>
               <div className="team-photo-placeholder" aria-hidden="true">
                 <span>AA</span>
@@ -1292,26 +1298,6 @@ function AboutPage({ t, navigate }) {
                 Shifa Translate also focuses strongly on literacy rates in Pakistan. We aim to hold educational camps
                 and audio translations for individuals who cannot read, helping them feel confident and aware when they
                 hear scientific or biological terms.
-              </p>
-            </article>
-            <article>
-              <div className="team-photo-placeholder" aria-hidden="true">
-                <span>RN</span>
-              </div>
-              <h3>Ranya Nasir</h3>
-              <p>
-                My name is Ranya Nasir, and I am a co-founder of Shifa Translate. I strongly believe that knowledge is
-                only valuable when it is accessible to everyone.
-              </p>
-              <p>
-                In Pakistan, understanding medical and scientific terms is often a barrier that most people find
-                extremely difficult to overcome. This communication gap leads to confusion and misunderstandings, which
-                causes difficulties when making informed decisions about health.
-              </p>
-              <p>
-                Through Shifa Translate, my goal is to bridge the gap between scientific knowledge and the language we
-                use every day. By combining scientific accuracy with cultural understanding, Shifa Translate hopes to
-                empower individuals, families, and communities across Pakistan.
               </p>
             </article>
           </div>
