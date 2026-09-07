@@ -1,10 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { glossaryEntries } from "./data/glossary.js";
 import headerLogoUrl from "./assets/shifa-logo-white.svg";
-import doctorsImageUrl from "./assets/pakistani-doctors-community.webp";
-import medicinesImageUrl from "./assets/pakistani-medicines-pharmacy.webp";
-import surgeryImageUrl from "./assets/pakistani-surgery-team.webp";
-import labImageUrl from "./assets/pakistani-diagnostic-lab.webp";
 
 const localLanguages = ["Urdu", "Sindhi", "Punjabi", "Balochi", "Pashto", "Siraiki"];
 const interfaceLanguages = ["English", ...localLanguages];
@@ -36,10 +32,10 @@ const navItems = [
 ];
 
 const healthcareCategories = [
-  { title: "Doctors", text: "Pakistani doctors making medical language easier for patients and families.", image: doctorsImageUrl },
-  { title: "Medicines", text: "Clear information that supports safer understanding of medicines and prescriptions.", image: medicinesImageUrl },
-  { title: "Surgeries", text: "Simple explanations of surgical care, preparation and healthcare teamwork.", image: surgeryImageUrl },
-  { title: "Labs", text: "Understand common laboratory tests, diagnostic terms and medical reports.", image: labImageUrl },
+  { title: "Doctors", text: "Pakistani doctors making medical language easier for patients and families." },
+  { title: "Medicines", text: "Clear information that supports safer understanding of medicines and prescriptions." },
+  { title: "Surgeries", text: "Simple explanations of surgical care, preparation and healthcare teamwork." },
+  { title: "Labs", text: "Understand common laboratory tests, diagnostic terms and medical reports." },
 ];
 
 const glossaryPalettes = [
@@ -93,32 +89,7 @@ function getGlossaryVisual(entry) {
 }
 
 function GlossaryPicture({ entry, size = "card" }) {
-  const hash = hashTerm(entry.term);
-  const palette = glossaryPalettes[hash % glossaryPalettes.length];
-  const visual = getGlossaryVisual(entry);
-  const initials = entry.term
-    .replace(/\([^)]*\)/g, "")
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((word) => word[0])
-    .join("")
-    .toUpperCase();
-
-  return (
-    <div className={`glossary-picture glossary-picture-${size}`} aria-hidden="true">
-      <svg viewBox="0 0 240 150" role="img">
-        <rect width="240" height="150" rx="14" fill={palette[0]} />
-        <circle cx="42" cy="34" r="24" fill={palette[1]} opacity="0.95" />
-        <circle cx="198" cy="112" r="34" fill={palette[1]} opacity="0.68" />
-        <path d="M24 116 C66 82 91 137 130 102 S185 64 218 82" fill="none" stroke={palette[1]} strokeWidth="10" strokeLinecap="round" opacity="0.78" />
-        <GlossarySymbol type={visual} color={palette[2]} accent={palette[3]} />
-        <text x="30" y="130" fill={palette[3]} fontSize="18" fontWeight="900" fontFamily="Arial, sans-serif">
-          {initials || entry.term[0]}
-        </text>
-      </svg>
-    </div>
-  );
+  return <ImagePlaceholder label={`${entry.term} image`} className={`glossary-picture glossary-picture-${size}`} />;
 }
 
 function GlossarySymbol({ type, color, accent }) {
@@ -1135,7 +1106,7 @@ function BlogPage({ navigate }) {
           </button>
         </div>
         <div className="blog-banner-art">
-          <BlogVisual large image={doctorsImageUrl} alt="Pakistani doctors supporting patient education" />
+          <BlogVisual large alt="Blog hero image" />
         </div>
         <div className="blog-banner-stats" aria-label="Blog summary">
           <span>{blogPosts.length} Article</span>
@@ -1152,7 +1123,7 @@ function BlogPage({ navigate }) {
         <div className="blog-grid">
           {blogPosts.map((post) => (
             <button className="blog-card" key={post.slug} type="button" onClick={() => navigate(`/blog/${post.slug}`)}>
-              <BlogVisual image={medicinesImageUrl} alt="Medicines in a Pakistani pharmacy" />
+              <BlogVisual alt={`${post.title} article image`} />
               <span>{post.category}</span>
               <h2>{post.title}</h2>
               <p>{post.excerpt}</p>
@@ -1199,7 +1170,7 @@ function BlogDetailPage({ navigate, post }) {
           <p>{post.excerpt}</p>
         </div>
         <div className="blog-detail-banner-art">
-          <BlogVisual large image={labImageUrl} alt="Pakistani diagnostic laboratory team" />
+          <BlogVisual large alt="Article hero image" />
         </div>
       </section>
       <article className="blog-detail">
@@ -1211,12 +1182,8 @@ function BlogDetailPage({ navigate, post }) {
   );
 }
 
-function BlogVisual({ large = false, image = medicinesImageUrl, alt = "Pakistani healthcare" }) {
-  return (
-    <div className={`blog-visual ${large ? "blog-visual-large" : ""}`}>
-      <img src={image} alt={alt} />
-    </div>
-  );
+function BlogVisual({ large = false, alt = "Blog image" }) {
+  return <ImagePlaceholder label={alt} className={`blog-visual ${large ? "blog-visual-large" : ""}`} />;
 }
 
 function AboutPage({ t, navigate }) {
@@ -1224,7 +1191,7 @@ function AboutPage({ t, navigate }) {
     <main>
       <section className="about-section">
         <div className="about-banner">
-          <img src={surgeryImageUrl} alt="Pakistani surgical team reviewing a care plan" />
+          <ImagePlaceholder label="About Shifa Translate hero image" className="about-image-placeholder" />
         </div>
         <div className="section-heading">
           <p className="kicker">{t("aboutUs")}</p>
@@ -1356,7 +1323,7 @@ function ContactPage({ t, selectedLanguage, setSelectedLanguage, submitForm, for
   return (
     <main>
       <section className="contact-banner">
-        <img src={doctorsImageUrl} alt="Pakistani doctors supporting patients and families" />
+        <ImagePlaceholder label="Contact page hero image" className="contact-image-placeholder" />
         <div>
           <p className="kicker">{t("contactUs")}</p>
           <h1>{t("contribute")}</h1>
