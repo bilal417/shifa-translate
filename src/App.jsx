@@ -307,6 +307,21 @@ const dictionarySources = [
 
 const blogPosts = [
   {
+    slug: "stroke-public-health-crisis-pakistan",
+    title: "Stroke: A Growing Public Health Crisis in Pakistan",
+    author: "Abdullah Aamer",
+    category: "Stroke Awareness",
+    readTime: "3 min read",
+    excerpt:
+      "The first time you witness someone having a stroke, your whole world shatters. Stroke isn’t just a disease of old age- it is becoming a growing public health crisis that many families are unprepared for.",
+    body: [
+      "The first time you witness someone having a stroke, your whole world shatters. It is not simply a jarring experience, their inability to communicate, move, speak, breathe and eat instantly renders them almost inhuman. Every 2 minutes in Pakistan means that this is a ticking time bomb that could affect anyone we know- even ourselves. Stroke isn’t just a disease of old age- it is becoming a growing public health crisis that many families are unprepared for.",
+      "In 2021, stroke was the second leading cause of death in Pakistan, responsible for 99,759 deaths, with an incidence of 153 and a prevalence of 1088 per 100,000 population. Pakistan has made modest progress in reducing stroke rates over the decade, but the situation remains extremely dire. From 1990-2021,the incidence and mortality associated with stroke declined, but these improvements haven’t been either continuous, or even wide-scale. The support available is abysmal- only around a total of 10 stroke units, of which only 6 centers are offering intravenous thrombolysis. The infrastructure for referring patients with symptoms of acute stroke to the centers which have a stroke neurologist and facilities to manage acute stroke and offer intravenous thrombolysis is really poor. There are many reasons why many patients can’t even recover properly because they don't even get the chance for effective early treatment due to expense- or sometimes public health facilities are not capable of providing specialized stroke unit care in Pakistan. Patients from rural areas have the added burden of very limited access to timely bringing the patient for brain imaging on time. Delayed treatment is catastrophic- permanent brain damage, even death, can occur in a matter of minutes.",
+      "How can we ensure our loved ones are safe? The first is to learn the acronym BE FAST (Balance, Eyes, Face, Arms, Speech, Time)- watch for a sudden loss of balance, observe for sudden vision loss or changes in one or both eyes, ask the patient to smile and check for facial drooping, raise both arms if you or someone is having a stroke (one arm will sag in an unusual way), ask them to repeat a sentence and see are they having any troubling in the fluency or choosing the right words.",
+      "Amidst the dearth of treatment options, just this basic awareness could mean the difference between life and death.",
+    ],
+  },
+  {
     slug: "pcos-awareness",
     title: "Polycystic Ovarian Syndrome (PCOS)",
     author: "Sakina Fahad",
