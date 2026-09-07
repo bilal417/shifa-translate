@@ -1,18 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { glossaryEntries } from "./data/glossary.js";
 import headerLogoUrl from "./assets/shifa-logo-white.svg";
-import logoUrl from "../WhatsApp Image 2026-07-06 at 14.51.20.jpeg";
-
-const heroImageUrl =
-  "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1600&q=80";
-const languageImageUrl =
-  "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80";
-const fieldworkImageUrl =
-  "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80";
-const aboutImageUrl =
-  "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1400&q=80";
-const contactImageUrl =
-  "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1400&q=80";
+import healthcareHeroCollageUrl from "./assets/pakistan-healthcare-hero-collage.webp";
+import doctorsImageUrl from "./assets/pakistani-doctors-community.webp";
+import medicinesImageUrl from "./assets/pakistani-medicines-pharmacy.webp";
+import surgeryImageUrl from "./assets/pakistani-surgery-team.webp";
+import labImageUrl from "./assets/pakistani-diagnostic-lab.webp";
 
 const localLanguages = ["Urdu", "Sindhi", "Punjabi", "Balochi", "Pashto", "Siraiki"];
 const interfaceLanguages = ["English", ...localLanguages];
@@ -41,6 +34,13 @@ const navItems = [
   ["Blog", "/blog"],
   ["About Us", "/about"],
   ["Contact Us", "/contact"],
+];
+
+const healthcareCategories = [
+  { title: "Doctors", text: "Pakistani doctors making medical language easier for patients and families.", image: doctorsImageUrl },
+  { title: "Medicines", text: "Clear information that supports safer understanding of medicines and prescriptions.", image: medicinesImageUrl },
+  { title: "Surgeries", text: "Simple explanations of surgical care, preparation and healthcare teamwork.", image: surgeryImageUrl },
+  { title: "Labs", text: "Understand common laboratory tests, diagnostic terms and medical reports.", image: labImageUrl },
 ];
 
 const glossaryPalettes = [
@@ -564,7 +564,7 @@ function HomePage({ t, navigate, query, setQuery, wordOfDay }) {
       <section className="hero">
         <div className="hero-copy">
           <p className="kicker">{t("heroKicker")}</p>
-          <h1>{t("heroTitle")}</h1>
+          <h1>{t("heroTitle")}1</h1>
           <p>{t("heroText")}</p>
           <div className="hero-search">
             <SearchIcon />
@@ -589,9 +589,11 @@ function HomePage({ t, navigate, query, setQuery, wordOfDay }) {
           </div>
         </div>
         <div className="hero-visual">
-          <HomeHeroGraphic />
+          <img
+            src={healthcareHeroCollageUrl}
+            alt="Pakistani doctors with medicine, surgery and laboratory scenes"
+          />
           <div className="hero-logo-card">
-            <img src={logoUrl} alt="Shifa Translate logo" />
             <span>{glossaryEntries.length}+ glossary words</span>
           </div>
         </div>
@@ -620,8 +622,27 @@ function HomePage({ t, navigate, query, setQuery, wordOfDay }) {
               <span>Community learning</span>
             </div>
           </div>
-          <CommunityCareGraphic />
+          <MedicalPhoto src={doctorsImageUrl} alt="Pakistani doctors discussing healthcare with a family" />
         </article>
+      </section>
+
+      <section className="home-care-categories-section">
+        <div className="section-heading">
+          <p className="kicker">Healthcare categories</p>
+          <h2>Medical knowledge across every step of care.</h2>
+          <p>Explore terminology connected to doctors, medicines, surgeries and diagnostic laboratories.</p>
+        </div>
+        <div className="home-care-categories-grid">
+          {healthcareCategories.map((category) => (
+            <article key={category.title}>
+              <img src={category.image} alt={`Pakistani healthcare: ${category.title}`} />
+              <div>
+                <h3>{category.title}</h3>
+                <p>{category.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="home-word-highlight-section">
@@ -634,7 +655,7 @@ function HomePage({ t, navigate, query, setQuery, wordOfDay }) {
               {wordOfDay.urdu} - {wordOfDay.urduMeaning}
             </strong>
           </div>
-          <KnowledgeCardsGraphic />
+          <MedicalPhoto src={medicinesImageUrl} alt="Pakistani pharmacist explaining medicines" />
         </article>
         <div className="home-stat-strip">
           <article>
@@ -658,7 +679,7 @@ function HomePage({ t, navigate, query, setQuery, wordOfDay }) {
           <h2>Designed for the languages people use at home.</h2>
         </div>
         <div className="home-language-layout">
-          <LanguageBridgeGraphic />
+          <MedicalPhoto src={labImageUrl} alt="Pakistani diagnostic laboratory professionals" />
           <div className="home-language-list">
             {localLanguages.map((language) => (
               <button key={language} type="button" onClick={() => navigate(`/languages/${languageToSlug[language]}`)}>
@@ -705,7 +726,7 @@ function HomePage({ t, navigate, query, setQuery, wordOfDay }) {
           <h2>Health awareness from the Shifa Translate team.</h2>
         </div>
         <div className="home-blog-layout">
-          <BlogVisual large />
+          <BlogVisual large image={surgeryImageUrl} alt="Pakistani surgical team in an operating theatre" />
           <article>
             <span>{blogPosts[0].category}</span>
             <h3>{blogPosts[0].title}</h3>
@@ -745,6 +766,14 @@ function HomeHeroGraphic() {
           </g>
         </g>
       </svg>
+    </div>
+  );
+}
+
+function MedicalPhoto({ src, alt }) {
+  return (
+    <div className="home-graphic medical-photo">
+      <img src={src} alt={alt} />
     </div>
   );
 }
@@ -1100,7 +1129,7 @@ function BlogPage({ navigate }) {
           </button>
         </div>
         <div className="blog-banner-art">
-          <BlogVisual large />
+          <BlogVisual large image={doctorsImageUrl} alt="Pakistani doctors supporting patient education" />
         </div>
         <div className="blog-banner-stats" aria-label="Blog summary">
           <span>{blogPosts.length} Article</span>
@@ -1117,7 +1146,7 @@ function BlogPage({ navigate }) {
         <div className="blog-grid">
           {blogPosts.map((post) => (
             <button className="blog-card" key={post.slug} type="button" onClick={() => navigate(`/blog/${post.slug}`)}>
-              <BlogVisual />
+              <BlogVisual image={medicinesImageUrl} alt="Medicines in a Pakistani pharmacy" />
               <span>{post.category}</span>
               <h2>{post.title}</h2>
               <p>{post.excerpt}</p>
@@ -1164,7 +1193,7 @@ function BlogDetailPage({ navigate, post }) {
           <p>{post.excerpt}</p>
         </div>
         <div className="blog-detail-banner-art">
-          <BlogVisual large />
+          <BlogVisual large image={labImageUrl} alt="Pakistani diagnostic laboratory team" />
         </div>
       </section>
       <article className="blog-detail">
@@ -1176,26 +1205,10 @@ function BlogDetailPage({ navigate, post }) {
   );
 }
 
-function BlogVisual({ large = false }) {
+function BlogVisual({ large = false, image = medicinesImageUrl, alt = "Pakistani healthcare" }) {
   return (
-    <div className={`blog-visual ${large ? "blog-visual-large" : ""}`} aria-hidden="true">
-      <svg viewBox="0 0 720 360" role="img">
-        <rect width="720" height="360" rx="24" fill="#f7fbfa" />
-        <circle cx="118" cy="92" r="62" fill="#c9eadf" />
-        <circle cx="600" cy="268" r="86" fill="#f2d5a7" opacity="0.78" />
-        <path d="M68 276 C166 190 252 322 356 232 S520 124 652 180" fill="none" stroke="#bfe3eb" strokeWidth="28" strokeLinecap="round" />
-        <g transform="translate(250 78)">
-          <circle cx="110" cy="92" r="74" fill="#ffffff" stroke="#1f7a74" strokeWidth="12" />
-          <circle cx="78" cy="102" r="18" fill="#efc4d0" />
-          <circle cx="128" cy="70" r="14" fill="#f2d5a7" />
-          <circle cx="143" cy="120" r="12" fill="#cdd8f2" />
-          <path d="M110 20 V-18 M110 202 V164 M20 92 H-18 M238 92 H200 M47 29 L18 0 M173 155 L202 184 M173 29 L202 0 M47 155 L18 184" fill="none" stroke="#16495a" strokeWidth="10" strokeLinecap="round" />
-        </g>
-        <g fill="#16495a" fontFamily="Arial, sans-serif" fontWeight="900">
-          <text x="54" y="310" fontSize="34">PCOS</text>
-          <text x="54" y="334" fontSize="16">Hormonal health awareness</text>
-        </g>
-      </svg>
+    <div className={`blog-visual ${large ? "blog-visual-large" : ""}`}>
+      <img src={image} alt={alt} />
     </div>
   );
 }
@@ -1205,7 +1218,7 @@ function AboutPage({ t, navigate }) {
     <main>
       <section className="about-section">
         <div className="about-banner">
-          <img src={aboutImageUrl} alt="Healthcare education and discussion" />
+          <img src={surgeryImageUrl} alt="Pakistani surgical team reviewing a care plan" />
         </div>
         <div className="section-heading">
           <p className="kicker">{t("aboutUs")}</p>
@@ -1357,7 +1370,7 @@ function ContactPage({ t, selectedLanguage, setSelectedLanguage, submitForm, for
   return (
     <main>
       <section className="contact-banner">
-        <img src={contactImageUrl} alt="Healthcare team support desk" />
+        <img src={doctorsImageUrl} alt="Pakistani doctors supporting patients and families" />
         <div>
           <p className="kicker">{t("contactUs")}</p>
           <h1>{t("contribute")}</h1>
