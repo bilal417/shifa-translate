@@ -564,7 +564,7 @@ function HomePage({ t, navigate, query, setQuery, wordOfDay }) {
       <section className="hero">
         <div className="hero-copy">
           <p className="kicker">{t("heroKicker")}</p>
-          <h1>{t("heroTitle")}1</h1>
+          <h1>{t("heroTitle")}</h1>
           <p>{t("heroText")}</p>
           <div className="hero-search">
             <SearchIcon />
